@@ -1,6 +1,6 @@
 package com.twosixlabs.dart.corpex.tools
 
-import com.twosixlabs.dart.corpex.services.es.ElasticsearchSearchService
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
 import com.twosixlabs.dart.rest.scalatra.models.HealthStatus
 
 import scala.concurrent.Await

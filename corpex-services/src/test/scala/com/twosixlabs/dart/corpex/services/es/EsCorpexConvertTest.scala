@@ -1,19 +1,21 @@
 package com.twosixlabs.dart.corpex.services.es
 
 import better.files.Resource
-import com.twosixlabs.cdr4s.json.dart.{DartCdrDocumentDto, DartMetadataDto}
-import com.twosixlabs.dart.corpex.api.configuration.annotations.{EntityTagTypes, FacetIds, TagIds}
-import com.twosixlabs.dart.corpex.api.enums.{BoolType, SortType}
+import com.twosixlabs.cdr4s.json.dart.{ DartCdrDocumentDto, DartMetadataDto }
+import com.twosixlabs.dart.corpex.api.configuration.annotations.{ EntityTagTypes, FacetIds, TagIds }
+import com.twosixlabs.dart.corpex.api.enums.{ BoolType, SortType }
 import com.twosixlabs.dart.corpex.api.exceptions.InvalidSearchQueryException
-import com.twosixlabs.dart.corpex.api.models.{CorpexSearchRequest, CorpexSingleResult, CorpexSortKey, Count, MultiValue, ValueCount}
-import com.twosixlabs.dart.corpex.api.models.queries.{CorpexCdrDateQuery, CorpexFacetAggQuery, CorpexFacetQuery, CorpexFieldAggQuery, CorpexIntegerQuery, CorpexTagQuery, CorpexTagValuesAggQuery, CorpexTermQuery, CorpexTextQuery}
+import com.twosixlabs.dart.corpex.api.models.{ CorpexSearchRequest, CorpexSingleResult, CorpexSortKey, Count, MultiValue, ValueCount }
+import com.twosixlabs.dart.corpex.api.models.queries.{ CorpexCdrDateQuery, CorpexFacetAggQuery, CorpexFacetQuery, CorpexFieldAggQuery, CorpexIntegerQuery, CorpexTagQuery, CorpexTagValuesAggQuery, CorpexTermQuery, CorpexTextQuery }
 import com.twosixlabs.dart.corpex.api.tools.Mapper
-import com.twosixlabs.dart.corpex.services.es.models.{DartEsDocument, DartPrivateFields, DoubleRangeQuery, EsResponseHits, EsResponseHitsTotal, EsResponseResult, EsSearchResponse, LongRangeQuery, QueryStringQuery, RangeQuery}
+import com.twosixlabs.dart.corpex.services.search.es.models.DartPrivateFields
+import com.twosixlabs.dart.corpex.services.search.es.EsCorpexConvert
+import com.twosixlabs.dart.corpex.services.search.es.models.{ DartEsDocument, DartPrivateFields, DoubleRangeQuery, EsResponseHits, EsResponseHitsTotal, EsResponseResult, EsSearchResponse, LongRangeQuery, QueryStringQuery, RangeQuery }
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Failure, Success, Try }
 
 class EsCorpexConvertTest extends AnyFlatSpecLike with Matchers {
 

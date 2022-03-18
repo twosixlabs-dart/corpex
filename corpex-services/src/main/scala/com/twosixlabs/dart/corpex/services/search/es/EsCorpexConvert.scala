@@ -1,15 +1,16 @@
-package com.twosixlabs.dart.corpex.services.es
+package com.twosixlabs.dart.corpex.services.search.es
 
-import com.twosixlabs.dart.corpex.api.configuration.annotations.{AllTags, FacetIds, TagIds}
-import com.twosixlabs.dart.corpex.api.configuration.metadata.{CdrDataId, CorpexDataId, DataIds, DataTypes}
+import com.twosixlabs.dart.corpex.api.configuration.annotations.{ AllTags, FacetIds, TagIds }
+import com.twosixlabs.dart.corpex.api.configuration.metadata.{ CdrDataId, CorpexDataId, DataIds, DataTypes }
 import com.twosixlabs.dart.corpex.api.enums.BoolType
-import com.twosixlabs.dart.corpex.api.models.queries.{CorpexAggQuery, CorpexBoolQuery, CorpexCdrDateQuery, CorpexFacetAggQuery, CorpexFacetScoreAggQuery, CorpexFacetQuery, CorpexFieldAggQuery, CorpexIntegerQuery, CorpexSearchQuery, CorpexTagQuery, CorpexTagTypesAggQuery, CorpexTagValuesAggQuery, CorpexTermQuery, CorpexTextQuery}
-import com.twosixlabs.dart.corpex.api.models.{CorpexSearchRequest, CorpexSearchResults, CorpexSingleResult, Count, DateRangeCount, FloatRangeCount, IntRangeCount, MultiValue, ValueScore, ValueCount}
-import com.twosixlabs.dart.corpex.services.es.QueryGenerators._
-import com.twosixlabs.dart.corpex.services.es.models.{EsAggQuery, EsAggResult, EsQuery, EsResponseResult, EsSearchRequest, EsSearchResponse, EsSortKey, TermQuery}
-import com.twosixlabs.dart.corpex.tools.{ParseDate, ParseQuery}
+import com.twosixlabs.dart.corpex.api.models.queries.{ CorpexAggQuery, CorpexBoolQuery, CorpexCdrDateQuery, CorpexFacetAggQuery, CorpexFacetQuery, CorpexFacetScoreAggQuery, CorpexFieldAggQuery, CorpexIntegerQuery, CorpexSearchQuery, CorpexTagQuery, CorpexTagTypesAggQuery, CorpexTagValuesAggQuery, CorpexTermQuery, CorpexTextQuery }
+import com.twosixlabs.dart.corpex.api.models.{ CorpexSearchRequest, CorpexSearchResults, CorpexSingleResult, Count, DateRangeCount, FloatRangeCount, IntRangeCount, MultiValue, ValueCount, ValueScore }
+import QueryGenerators._
+import com.twosixlabs.dart.corpex.services.search.es.models.EsResponseResult
+import com.twosixlabs.dart.corpex.services.search.es.models.{ EsAggQuery, EsAggResult, EsQuery, EsResponseResult, EsSearchRequest, EsSearchResponse, EsSortKey, TermQuery }
+import com.twosixlabs.dart.corpex.tools.{ ParseDate, ParseQuery }
 import com.twosixlabs.dart.exceptions.BadRequestBodyException
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 class EsCorpexConvert( defaultPageSize : Int,
                        baseFields : List[ String ],
@@ -250,7 +251,7 @@ class EsCorpexConvert( defaultPageSize : Int,
             }
         } ) )
 
-        EsSearchRequest( query = topQuery,
+        models.EsSearchRequest( query = topQuery,
                          storedFields = if ( storedFields.isEmpty ) None else Some( storedFields ),
                          source = if ( sourceFields.isEmpty ) None else Some( sourceFields ),
                          from = from,

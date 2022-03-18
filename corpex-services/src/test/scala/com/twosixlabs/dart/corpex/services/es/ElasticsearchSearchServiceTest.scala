@@ -9,8 +9,9 @@ import com.twosixlabs.dart.corpex.api.models.queries.CorpexTextQuery
 import com.twosixlabs.dart.corpex.api.tools.Mapper
 import com.twosixlabs.dart.exceptions.BadQueryParameterException
 import annotations.WipTest
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
 import com.typesafe.config.ConfigFactory
-import okhttp3.mockwebserver.{MockResponse, MockWebServer, RecordedRequest}
+import okhttp3.mockwebserver.{ MockResponse, MockWebServer, RecordedRequest }
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
 

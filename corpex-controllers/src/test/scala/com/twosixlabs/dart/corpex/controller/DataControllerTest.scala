@@ -3,12 +3,12 @@ package com.twosixlabs.dart.corpex.controller
 import com.twosixlabs.dart.auth.controllers.SecureDartController
 import com.twosixlabs.dart.auth.groups.ProgramManager
 import com.twosixlabs.dart.auth.user.DartUser
-import com.twosixlabs.dart.corpex.services.es.ElasticsearchSearchService
-import com.typesafe.config.{Config, ConfigFactory}
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
+import com.typesafe.config.{ Config, ConfigFactory }
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
 import org.scalatra.test.scalatest.ScalatraSuite
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 import javax.servlet.http.HttpServletRequest
 

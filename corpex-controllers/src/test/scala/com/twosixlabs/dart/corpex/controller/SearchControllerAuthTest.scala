@@ -1,15 +1,15 @@
 package com.twosixlabs.dart.corpex.controller
 
 import com.twosixlabs.dart.auth.controllers.SecureDartController
-import com.twosixlabs.dart.auth.groups.{ProgramManager, TenantGroup}
-import com.twosixlabs.dart.auth.tenant.{CorpusTenant, Leader, ReadOnly}
+import com.twosixlabs.dart.auth.groups.{ ProgramManager, TenantGroup }
+import com.twosixlabs.dart.auth.tenant.{ CorpusTenant, Leader, ReadOnly }
 import com.twosixlabs.dart.auth.user.DartUser
 import com.twosixlabs.dart.commons.config.StandardCliConfig
-import com.twosixlabs.dart.corpex.services.SearchService
-import com.twosixlabs.dart.corpex.services.es.ElasticsearchSearchService
 import annotations.WipTest
-import com.typesafe.config.{Config, ConfigFactory}
-import okhttp3.mockwebserver.{MockResponse, MockWebServer}
+import com.twosixlabs.dart.corpex.services.search.SearchService
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
+import com.typesafe.config.{ Config, ConfigFactory }
+import okhttp3.mockwebserver.{ MockResponse, MockWebServer }
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers

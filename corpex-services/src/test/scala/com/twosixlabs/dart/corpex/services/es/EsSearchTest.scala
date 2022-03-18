@@ -2,10 +2,11 @@ package com.twosixlabs.dart.corpex.services.es
 
 import com.twosixlabs.dart.commons.config.StandardCliConfig
 import annotations.IntegrationTest
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
 import com.typesafe.config.ConfigFactory
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 import scala.collection.JavaConverters._
 

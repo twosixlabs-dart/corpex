@@ -3,7 +3,8 @@ package com.twosixlabs.dart.corpex.services.es.models
 import better.files.Resource
 import com.twosixlabs.cdr4s.json.dart.DartCdrDocumentDto
 import com.twosixlabs.dart.corpex.api.tools.Mapper
-import org.scalatest.{FlatSpecLike, Matchers}
+import com.twosixlabs.dart.corpex.services.search.es.models.EsDocumentResponse
+import org.scalatest.{ FlatSpecLike, Matchers }
 
 class EsDocumentResponseTest extends FlatSpecLike with Matchers {
     "Mapper" should "unmarshal a cdr" in {

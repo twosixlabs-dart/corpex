@@ -7,9 +7,9 @@ import com.twosixlabs.dart.auth.groups.ProgramManager
 import com.twosixlabs.dart.auth.tenant.indices.InMemoryCorpusTenantIndex
 import com.twosixlabs.dart.auth.user.DartUser
 import com.twosixlabs.dart.corpex.api.tools.Mapper
-import com.twosixlabs.dart.corpex.services.SearchService
+import com.twosixlabs.dart.corpex.services.search.SearchService
 import com.twosixlabs.dart.utils.DatesAndTimes
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.{ Config, ConfigFactory }
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
@@ -26,7 +26,8 @@ class DocumentsControllerTest extends AnyFlatSpecLike with ScalatraSuite with Ma
 
     val config : Config = ConfigFactory.load( "test" ).resolve()
 
-    val baseDependencies = SecureDartController.deps( "corpex", config )
+    val baseDependencies : SecureDartController.Dependencies =
+        SecureDartController.deps( "corpex", config )
 
     addServlet( DocumentsController( searchService, new InMemoryCorpusTenantIndex(), baseDependencies ), "/documents/*" )
 
@@ -81,7 +82,6 @@ class DocumentsControllerTest extends AnyFlatSpecLike with ScalatraSuite with Ma
             """{"extracted_metadata":{"Title":"The impact of disasters and crises on agriculture and food security: 2021"},"document_id":"0fc018c8dec5f42c80384244ea87cfce","annotations":null}""".stripMargin
         }
     }
-
 
     override def header = null
 }

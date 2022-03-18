@@ -2,6 +2,7 @@ package com.twosixlabs.dart.corpex.services.es.models
 
 import com.twosixlabs.dart.corpex.api.enums.SortType
 import com.twosixlabs.dart.corpex.api.tools.Mapper
+import com.twosixlabs.dart.corpex.services.search.es.models.EsSortKey
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
 
