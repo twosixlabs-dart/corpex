@@ -12,18 +12,15 @@ object Dependencies {
     val jacksonVersion = "2.9.9"
     val okhttpVersion = "4.1.0"
     val scalaMockVersion = "4.1.0"
-    val cdr4sApisVersion = "2.0.74"
-    val cdr4sVersion = "3.0.256"
-    val corpexApiVersion = "3.0.166"
+    val cdr4sVersion = "3.0.9"
     val slickVersion = "3.3.2"
     val c3p0Version = "0.9.5.1"
     val postgresVersion = "42.0.0"
     val slickPgVersion = "0.18.1"
-    val cdrAggregatorVersion = "3.0-SNAPSHOT"
-    val dartCommonsVersion = "3.0.285"
-    val dartRestVersion = "3.0.15"
-    val dartAuthVersion = "3.0.100"
-    val dartEsVersion = "3.0-SNAPSHOT"
+    val dartCommonsVersion = "3.0.30"
+    val dartRestVersion = "3.0.4"
+    val dartAuthVersion = "3.1.7"
+    val dartEsVersion = "3.1.4"
     val tapirVersion = "0.17.13"
     val circeVersion = "0.13.0"
 
@@ -57,18 +54,12 @@ object Dependencies {
     val cdr4s = Seq( "com.twosixlabs.cdr4s" %% "cdr4s-core" % cdr4sVersion,
                      "com.twosixlabs.cdr4s" %% "cdr4s-dart-json" % cdr4sVersion )
 
-    val cdr4sApis = Seq( "com.twosixlabs.cdr4s" %% "cdr4s-apis" % cdr4sApisVersion )
-
-    val corpexApi = Seq( "com.twosixlabs.dart" %% "corpex-api" % corpexApiVersion )
-
     val database = Seq( "com.typesafe.slick" %% "slick" % slickVersion,
                         "org.postgresql" % "postgresql" % postgresVersion,
                         "com.github.tminglei" %% "slick-pg" % slickPgVersion,
                         "com.mchange" % "c3p0" % c3p0Version )
 
-    val cdrAggregator = Seq( "com.twosixlabs.dart" %% "cdr-aggregator" % cdrAggregatorVersion )
-
-    val dartAuth = Seq( "com.twosixlabs.dart" %% "dart-auth-commons" % dartAuthVersion )
+    val dartAuth = Seq( "com.twosixlabs.dart.auth" %% "controllers" % dartAuthVersion )
 
     val dartRest = Seq( "com.twosixlabs.dart.rest" %% "dart-scalatra-commons" % dartRestVersion )
 

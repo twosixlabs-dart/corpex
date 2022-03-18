@@ -31,8 +31,7 @@ lazy val commonSettings = {
                                 scalaTest ++
                                 betterFiles ++
                                 scalaMock ++
-                                dartCommons ++
-                                cdrAggregator,
+                                dartCommons,
         // `sbt test` should skip tests tagged IntegrationTest
         Test / testOptions := Seq( Tests.Argument( "-l", "com.twosixlabs.dart.test.tags.annotations.IntegrationTest" ) ),
         Test / parallelExecution := false,
@@ -96,7 +95,6 @@ lazy val corpexApi = ( project in file( "corpex-api" ) )
                               ++ jsonValidator
                               ++ betterFiles
                               ++ cdr4s
-                              ++ cdr4sApis
                               ++ dartCommons,
       publishSettings,
     )
@@ -112,8 +110,7 @@ lazy val corpexServices = ( project in file( "corpex-services" ) )
                               ++ jsonValidator
                               ++ okhttp
                               ++ betterFiles
-                              ++ cdr4s
-                              ++ cdr4sApis,
+                              ++ cdr4s,
       disablePublish,
     )
 
