@@ -11,5 +11,4 @@ COPY ./corpex-microservice/target/scala-$SCALA_VERSION/*assembly*.jar $APP_DIR
 
 RUN chmod -R 755 /opt/app
 
-ENTRYPOINT ["/opt/app/run.sh"]
-
+ENTRYPOINT ["/opt/app/run-jar.sh"]

@@ -20,6 +20,7 @@ object Main extends StandardCliConfig {
         val context = new WebAppContext()
 
         context.setContextPath( "/" )
+        context.setResourceBase( "src/main/webapp" )
         context.setInitParameter( ScalatraListener.LifeCycleKey, "com.twosixlabs.dart.corpex.ScalatraInit" ) // scalatra uses some magic defaults I don't like
         context.addEventListener( new ScalatraListener )
 
