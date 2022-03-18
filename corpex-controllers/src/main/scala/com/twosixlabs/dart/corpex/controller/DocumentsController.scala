@@ -33,7 +33,8 @@ object DocumentsController {
             override val tenantIndex : CorpusTenantIndex = ti
             override val serviceName : String = baseDependencies.serviceName
             override val secretKey : Option[String ] = baseDependencies.secretKey
-            override val bypassAuth : Boolean = baseDependencies.bypassAuth
+            override val useDartAuth : Boolean = baseDependencies.useDartAuth
+            override val basicAuthCredentials : Seq[ (String, String) ] = baseDependencies.basicAuthCredentials
         } buildDocumentsController
     }
 }

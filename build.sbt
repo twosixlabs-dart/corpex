@@ -39,7 +39,7 @@ lazy val commonSettings = {
         IntegrationConfig / parallelExecution := false,
         IntegrationConfig / testOptions := Seq( Tests.Argument( "-n", "com.twosixlabs.dart.test.tags.annotations.IntegrationTest" ) ),
         // `sbt wip:test` should run only tests tagged WipTest
-        WipConfig / testOptions := Seq( Tests.Argument( "-n", "com.twosixlabs.dart.test.tags.annotations.WipTest" ) ),
+        WipConfig / testOptions := Seq( Tests.Argument( "-n", "annotations.WipTest" ) ),
     )
 }
 
@@ -110,6 +110,7 @@ lazy val corpexServices = ( project in file( "corpex-services" ) )
                               ++ jsonValidator
                               ++ okhttp
                               ++ betterFiles
+                              ++ dartRest
                               ++ cdr4s,
       disablePublish,
     )

@@ -1,7 +1,7 @@
 package com.twosixlabs.dart.corpex.services.es
 
 import com.twosixlabs.dart.commons.config.StandardCliConfig
-import com.twosixlabs.dart.test.tags.annotations.IntegrationTest
+import annotations.IntegrationTest
 import com.typesafe.config.ConfigFactory
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers

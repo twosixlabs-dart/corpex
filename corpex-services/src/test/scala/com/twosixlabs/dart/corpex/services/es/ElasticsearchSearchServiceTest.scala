@@ -8,7 +8,7 @@ import com.twosixlabs.dart.corpex.api.models.CorpexSearchRequest
 import com.twosixlabs.dart.corpex.api.models.queries.CorpexTextQuery
 import com.twosixlabs.dart.corpex.api.tools.Mapper
 import com.twosixlabs.dart.exceptions.BadQueryParameterException
-import com.twosixlabs.dart.test.tags.annotations.WipTest
+import annotations.WipTest
 import com.typesafe.config.ConfigFactory
 import okhttp3.mockwebserver.{MockResponse, MockWebServer, RecordedRequest}
 import org.scalatest.flatspec.AnyFlatSpecLike

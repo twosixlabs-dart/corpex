@@ -5,7 +5,7 @@ import com.twosixlabs.dart.auth.groups.ProgramManager
 import com.twosixlabs.dart.auth.user.DartUser
 import com.twosixlabs.dart.commons.config.StandardCliConfig
 import com.twosixlabs.dart.corpex.services.es.ElasticsearchSearchService
-import com.twosixlabs.dart.test.tags.annotations.WipTest
+import annotations.WipTest
 import com.typesafe.config.{Config, ConfigFactory}
 import okhttp3.mockwebserver.{MockResponse, MockWebServer}
 import org.scalamock.scalatest.MockFactory
