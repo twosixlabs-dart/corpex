@@ -4,8 +4,6 @@ import com.twosixlabs.dart.auth.controllers.SecureDartController
 import com.twosixlabs.dart.corpex.controller.CdrAggregationController
 import com.twosixlabs.dart.corpex.services.aggregation.{ CdrService, ParameterizedQueryService }
 import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
-//import com.twosixlabs.dart.cdr.aggregator.controllers.CdrAggregationController
-//import com.twosixlabs.dart.cdr.aggregator.services.{CdrService, ParameterizedQueryService}
 import com.twosixlabs.dart.corpex.controller.{AnnotationsController, DataController, DocumentsController, SearchController}
 import com.twosixlabs.dart.rest.ApiStandards
 import com.twosixlabs.dart.rest.scalatra.DartRootServlet
