@@ -41,7 +41,7 @@ class CdrServiceTest extends AnyFlatSpecLike with Matchers with MockFactory with
 
         valueCounts.zip( valueCounts.tail ).foreach( tup => {
             val (left, right) = tup
-            left.numDocs should be >= right.numDocs
+            left.count should be >= right.count
         } )
     }
 
@@ -53,7 +53,7 @@ class CdrServiceTest extends AnyFlatSpecLike with Matchers with MockFactory with
         valueCounts.length shouldBe 3
         valueCounts.zip( valueCounts.tail ).foreach( tup => {
             val (left, right) = tup
-            left.numDocs should be >= right.numDocs
+            left.count should be >= right.count
         } )
     }
 
@@ -64,7 +64,7 @@ class CdrServiceTest extends AnyFlatSpecLike with Matchers with MockFactory with
         valueCounts.length shouldBe 10
         valueCounts.zip( valueCounts.tail ).foreach( tup => {
             val (left, right) = tup
-            left.numDocs should be >= right.numDocs
+            left.count should be >= right.count
         } )
     }
 
@@ -75,7 +75,7 @@ class CdrServiceTest extends AnyFlatSpecLike with Matchers with MockFactory with
         valueCounts.length shouldBe 402
         valueCounts.zip( valueCounts.tail ).foreach( tup => {
             val (left, right) = tup
-            left.numDocs should be >= right.numDocs
+            left.count should be >= right.count
         } )
     }
 
@@ -83,12 +83,10 @@ class CdrServiceTest extends AnyFlatSpecLike with Matchers with MockFactory with
         val cdrService = new CdrService( props, docService )
         val valueCounts = cdrService.aggregateCdr( cdr1, AggregationQuery( Some( "qntfy-event" ), Some( "NIL" ), minResults = Some( 15 ), maxResults = Some( 20 ) ) )
 
-       LOG.info("\n\n" + valueCounts.toString() + "\n\n" )
-
         valueCounts.length shouldBe 17
         valueCounts.zip( valueCounts.tail ).foreach( tup => {
             val (left, right) = tup
-            left.numDocs should be >= right.numDocs
+            left.count should be >= right.count
         } )
     }
 

@@ -3,9 +3,9 @@ package com.twosixlabs.dart.corpex.services.aggregation
 import com.twosixlabs.cdr4s.annotations.OffsetTag
 import com.twosixlabs.cdr4s.core.{ CdrAnnotation, CdrDocument, CdrMetadata, OffsetTagAnnotation }
 import com.twosixlabs.cdr4s.json.dart.{ DartJsonFormat, DartMetadataDto }
-import com.twosixlabs.dart.corpex.api.models.{ CorpexSearchRequest, ValueCount }
+import com.twosixlabs.dart.corpex.api.models.{ CorpexSearchRequest }
 import com.twosixlabs.dart.corpex.services.aggregation.exceptions.QueryValidationException
-import com.twosixlabs.dart.corpex.services.aggregation.models.AggregationQuery
+import com.twosixlabs.dart.corpex.services.aggregation.models.{ AggregationQuery, ValueCount }
 import com.twosixlabs.dart.corpex.services.search.SearchService
 import com.twosixlabs.dart.exceptions.{ BadQueryParameterException, ResourceNotFoundException, ServiceUnreachableException }
 import com.twosixlabs.dart.json.JsonFormat
@@ -73,7 +73,7 @@ class CdrService( props : Map[ String, String ], docService : SearchService ) {
                         case (value, list) => ValueCount( list.length, value )
                     } )
                       .toList
-                      .sortBy( _.numDocs )( Ordering.Int.reverse )
+                      .sortBy( _.count )( Ordering.Int.reverse )
 
                     val withMin = minRes match {
                         // If no minimum, just get all VCs in a flat list
@@ -84,11 +84,11 @@ class CdrService( props : Map[ String, String ], docService : SearchService ) {
                         case Some( min ) =>
                             val minValues = allCounts.take( min )
                             val restValues = allCounts.drop( min )
-                            val lastMinCount = minValues.lastOption.map( _.numDocs )
+                            val lastMinCount = minValues.lastOption.map( _.count )
                             lastMinCount match {
                                 case None => minValues
                                 case Some( lmc ) =>
-                                    minValues ++ restValues.takeWhile( _.numDocs == lmc )
+                                    minValues ++ restValues.takeWhile( _.count == lmc )
                             }
 
                     }
