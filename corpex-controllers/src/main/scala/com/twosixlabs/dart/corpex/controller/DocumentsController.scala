@@ -3,15 +3,15 @@ package com.twosixlabs.dart.corpex.controller
 import com.twosixlabs.dart.auth.controllers.SecureDartController
 import com.twosixlabs.dart.auth.permissions.DartOperations.RetrieveDocument
 import com.twosixlabs.dart.auth.tenant.CorpusTenantIndex.CorpusTenantIndexException
-import com.twosixlabs.dart.auth.tenant.{CorpusTenant, CorpusTenantIndex, DartTenant, GlobalCorpus}
+import com.twosixlabs.dart.auth.tenant.{ CorpusTenant, CorpusTenantIndex, DartTenant, GlobalCorpus }
 import com.twosixlabs.dart.auth.user.DartUser
-import com.twosixlabs.dart.corpex.services.SearchService
+import com.twosixlabs.dart.corpex.services.search.SearchService
 import com.twosixlabs.dart.exceptions.BadQueryParameterException
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Failure, Success, Try }
 
 object DocumentsController {
     trait Dependencies extends CorpexBaseController.Dependencies {
@@ -33,7 +33,8 @@ object DocumentsController {
             override val tenantIndex : CorpusTenantIndex = ti
             override val serviceName : String = baseDependencies.serviceName
             override val secretKey : Option[String ] = baseDependencies.secretKey
-            override val bypassAuth : Boolean = baseDependencies.bypassAuth
+            override val useDartAuth : Boolean = baseDependencies.useDartAuth
+            override val basicAuthCredentials : Seq[ (String, String) ] = baseDependencies.basicAuthCredentials
         } buildDocumentsController
     }
 }

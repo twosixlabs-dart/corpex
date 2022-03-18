@@ -7,9 +7,9 @@ import com.twosixlabs.dart.auth.groups.ProgramManager
 import com.twosixlabs.dart.auth.tenant.indices.InMemoryCorpusTenantIndex
 import com.twosixlabs.dart.auth.user.DartUser
 import com.twosixlabs.dart.corpex.api.tools.Mapper
-import com.twosixlabs.dart.corpex.services.SearchService
+import com.twosixlabs.dart.corpex.services.search.SearchService
 import com.twosixlabs.dart.utils.DatesAndTimes
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.{ Config, ConfigFactory }
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
@@ -19,14 +19,15 @@ import javax.servlet.http.HttpServletRequest
 
 class DocumentsControllerTest extends AnyFlatSpecLike with ScalatraSuite with Matchers with MockFactory {
 
-    val mockCdr : String = Resource.getAsString( "test_cdr.json" )
+    val mockCdr : String = Resource.getAsString( "test_cdr.json" ).trim
     val mockCdrObj : DartCdrDocumentDto = Mapper.unmarshal( mockCdr, classOf[ DartCdrDocumentDto ] )
 
     val searchService : SearchService = stub[ SearchService ]
 
     val config : Config = ConfigFactory.load( "test" ).resolve()
 
-    val baseDependencies = SecureDartController.deps( "corpex", config )
+    val baseDependencies : SecureDartController.Dependencies =
+        SecureDartController.deps( "corpex", config )
 
     addServlet( DocumentsController( searchService, new InMemoryCorpusTenantIndex(), baseDependencies ), "/documents/*" )
 
@@ -61,7 +62,7 @@ class DocumentsControllerTest extends AnyFlatSpecLike with ScalatraSuite with Ma
 
         get( "/documents/fake_doc_id?fieldsExcl=extracted_text,extracted_metadata,annotations,extracted_ntriples" ) {
             status shouldBe 200
-            response.body shouldBe Resource.getAsString( "test_cdr_excl_fields.json" )
+            response.body shouldBe Resource.getAsString( "test_cdr_excl_fields.json" ).trim
         }
     }
 
@@ -71,17 +72,16 @@ class DocumentsControllerTest extends AnyFlatSpecLike with ScalatraSuite with Ma
           .returns( mockCdrObj.copy( captureSource = null, extractedMetadata = mockCdrObj.extractedMetadata.copy( creationDate = null, modificationDate = null, docType = null,
                                                                                                                   description = null, originalLanguage = null, classification = null,
                                                                                                                   author = null, url = null, pages = null, subject = null,
-                                                                                                                  creator = null, producer = null ), contentType = null,
-                                     extractedNumeric = null, extractedText = null, uri = null, sourceUri = null, extractedNtriples = null, timestamp = null,
+                                                                                                                  creator = null, producer = null, statedGenre = null ),
+                                     contentType = null, extractedNumeric = null, extractedText = null, uri = null, sourceUri = null, extractedNtriples = null, timestamp = null,
                                      annotations = null, labels = null ) )
 
         get( "/documents/fake_doc_id?fieldsIncl=document_id,extracted_metadata.Publisher,extracted_metadata.Title,extracted_text&fieldsExcl=extracted_text,timestamp" ) {
             status shouldBe 200
             response.body shouldBe
-            """{"extracted_metadata":{"Title":"Elections in Ethiopia - Beyond Winning (and Losing) (Part III)","Publisher":"All Africa Global Media"},"document_id":"78f66304711008e1c38a96af2481a208","annotations":null}""".stripMargin
+            """{"extracted_metadata":{"Title":"The impact of disasters and crises on agriculture and food security: 2021"},"document_id":"0fc018c8dec5f42c80384244ea87cfce","annotations":null}""".stripMargin
         }
     }
-
 
     override def header = null
 }

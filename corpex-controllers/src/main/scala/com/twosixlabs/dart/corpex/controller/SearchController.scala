@@ -2,16 +2,16 @@ package com.twosixlabs.dart.corpex.controller
 
 import com.twosixlabs.dart.auth.controllers.SecureDartController
 import com.twosixlabs.dart.auth.permissions.DartOperations.SearchCorpus
-import com.twosixlabs.dart.auth.tenant.{CorpusTenant, DartTenant, GlobalCorpus}
+import com.twosixlabs.dart.auth.tenant.{ CorpusTenant, DartTenant, GlobalCorpus }
 import com.twosixlabs.dart.auth.user.DartUser
-import com.twosixlabs.dart.corpex.api.exceptions.{CorpexEnumException, InvalidAggQueryException, InvalidRequestException, InvalidSearchQueryException}
+import com.twosixlabs.dart.corpex.api.exceptions.{ CorpexEnumException, InvalidAggQueryException, InvalidRequestException, InvalidSearchQueryException }
 import com.twosixlabs.dart.corpex.api.models.CorpexSearchRequest
 import com.twosixlabs.dart.corpex.api.tools.Mapper
-import com.twosixlabs.dart.corpex.services.SearchService
-import com.twosixlabs.dart.exceptions.{BadQueryParameterException, BadRequestBodyException}
-import org.slf4j.{Logger, LoggerFactory}
+import com.twosixlabs.dart.corpex.services.search.SearchService
+import com.twosixlabs.dart.exceptions.{ BadQueryParameterException, BadRequestBodyException }
+import org.slf4j.{ Logger, LoggerFactory }
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Failure, Success, Try }
 
 object SearchController {
     trait Dependencies extends CorpexBaseController.Dependencies {
@@ -30,7 +30,8 @@ object SearchController {
             override val searchService : SearchService = ss
             override val serviceName : String = baseDependencies.serviceName
             override val secretKey : Option[String ] = baseDependencies.secretKey
-            override val bypassAuth : Boolean = baseDependencies.bypassAuth
+            override val useDartAuth : Boolean = baseDependencies.useDartAuth
+            override val basicAuthCredentials : Seq[ (String, String) ] = baseDependencies.basicAuthCredentials
         } buildSearchController
     }
 }

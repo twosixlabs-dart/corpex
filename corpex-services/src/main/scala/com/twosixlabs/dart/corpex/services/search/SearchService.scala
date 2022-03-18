@@ -1,7 +1,7 @@
-package com.twosixlabs.dart.corpex.services
+package com.twosixlabs.dart.corpex.services.search
 
 import com.twosixlabs.cdr4s.json.dart.DartCdrDocumentDto
-import com.twosixlabs.dart.corpex.api.models.{CorpexSearchRequest, CorpexSearchResults}
+import com.twosixlabs.dart.corpex.api.models.{ CorpexSearchRequest, CorpexSearchResults }
 import com.typesafe.config.Config
 
 import scala.concurrent.Future

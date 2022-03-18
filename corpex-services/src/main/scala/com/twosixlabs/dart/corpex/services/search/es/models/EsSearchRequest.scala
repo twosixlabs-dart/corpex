@@ -1,4 +1,4 @@
-package com.twosixlabs.dart.corpex.services.es.models
+package com.twosixlabs.dart.corpex.services.search.es.models
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include
 import com.fasterxml.jackson.annotation.{JsonInclude, JsonProperty}

@@ -31,8 +31,7 @@ lazy val commonSettings = {
                                 scalaTest ++
                                 betterFiles ++
                                 scalaMock ++
-                                dartCommons ++
-                                cdrAggregator,
+                                dartCommons,
         // `sbt test` should skip tests tagged IntegrationTest
         Test / testOptions := Seq( Tests.Argument( "-l", "com.twosixlabs.dart.test.tags.annotations.IntegrationTest" ) ),
         Test / parallelExecution := false,
@@ -40,20 +39,12 @@ lazy val commonSettings = {
         IntegrationConfig / parallelExecution := false,
         IntegrationConfig / testOptions := Seq( Tests.Argument( "-n", "com.twosixlabs.dart.test.tags.annotations.IntegrationTest" ) ),
         // `sbt wip:test` should run only tests tagged WipTest
-        WipConfig / testOptions := Seq( Tests.Argument( "-n", "com.twosixlabs.dart.test.tags.annotations.WipTest" ) ),
+        WipConfig / testOptions := Seq( Tests.Argument( "-n", "annotations.WipTest" ) ),
     )
 }
 
-lazy val publishSettings = Seq(
-    publishTo := {
-	// TODO
-	None
-    },
-    publishMavenStyle := true,
-)
-
 lazy val disablePublish = Seq(
-    publish := {}
+    skip.in( publish ) := true,
 )
 
 lazy val assemblySettings = Seq(
@@ -61,12 +52,29 @@ lazy val assemblySettings = Seq(
     assemblyMergeStrategy in assembly := {
         case PathList( "META-INF", "MANIFEST.MF" ) => MergeStrategy.discard
         case PathList( "reference.conf" ) => MergeStrategy.concat
-        case x => MergeStrategy.last
+        case _ => MergeStrategy.last
     },
-    Compile / unmanagedResourceDirectories += baseDirectory.value / "src/main/webapp",
     test in assembly := {},
     mainClass in( Compile, run ) := Some( "Main" ),
 )
+
+sonatypeProfileName := "com.twosixlabs"
+inThisBuild(List(
+    organization := "com.twosixlabs.dart.corpex",
+    homepage := Some(url("https://github.com/twosixlabs-dart/corpex")),
+    licenses := List("GNU-Affero-3.0" -> url("https://www.gnu.org/licenses/agpl-3.0.en.html")),
+    developers := List(
+        Developer(
+            "twosixlabs-dart",
+            "Two Six Technologies",
+            "",
+            url("https://github.com/twosixlabs-dart")
+        )
+    )
+))
+
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+ThisBuild / sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 
 
 /*
@@ -96,9 +104,7 @@ lazy val corpexApi = ( project in file( "corpex-api" ) )
                               ++ jsonValidator
                               ++ betterFiles
                               ++ cdr4s
-                              ++ cdr4sApis
                               ++ dartCommons,
-      publishSettings,
     )
 
 lazy val corpexServices = ( project in file( "corpex-services" ) )
@@ -112,8 +118,8 @@ lazy val corpexServices = ( project in file( "corpex-services" ) )
                               ++ jsonValidator
                               ++ okhttp
                               ++ betterFiles
-                              ++ cdr4s
-                              ++ cdr4sApis,
+                              ++ dartRest
+                              ++ cdr4s,
       disablePublish,
     )
 
@@ -128,7 +134,6 @@ lazy val corpexControllers = ( project in file( "corpex-controllers" ) )
                               ++ dartRest
                               ++ dartAuth
                               ++ jsonValidator,
-      publishSettings,
    )
 
 lazy val corpexMicroservice = ( project in file( "corpex-microservice" ) )
@@ -148,6 +153,5 @@ lazy val corpexClient = ( project in file( "corpex-client" ) )
       commonSettings,
       libraryDependencies ++= betterFiles ++ scalatra ++ jackson,
       assemblySettings,
-      publishSettings,
    )
 

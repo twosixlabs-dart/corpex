@@ -1,16 +1,17 @@
-package com.twosixlabs.dart.corpex.services.es
+package com.twosixlabs.dart.corpex.services.search.es
 
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import com.twosixlabs.cdr4s.json.dart.{DartCdrDocumentDto, DartMetadataDto}
-import com.twosixlabs.dart.corpex.api.models.{CorpexSearchRequest, CorpexSearchResults, CorpexSingleResult}
+import com.twosixlabs.cdr4s.json.dart.{ DartCdrDocumentDto, DartMetadataDto }
+import com.twosixlabs.dart.corpex.api.models.{ CorpexSearchRequest, CorpexSearchResults, CorpexSingleResult }
 import com.twosixlabs.dart.corpex.api.tools.Mapper
-import com.twosixlabs.dart.corpex.services.SearchService
-import com.twosixlabs.dart.corpex.services.es.models.{EsCountResponse, EsDocumentResponse, EsScrollRequest, EsSearchResponse}
-import com.twosixlabs.dart.exceptions.{BadQueryParameterException, Exceptions, ResourceNotFoundException, ServiceUnreachableException}
+import com.twosixlabs.dart.corpex.services.search.es.models.EsDocumentResponse
+import com.twosixlabs.dart.corpex.services.search.SearchService
+import com.twosixlabs.dart.corpex.services.search.es.models.{ EsCountResponse, EsDocumentResponse, EsScrollRequest, EsSearchResponse }
+import com.twosixlabs.dart.exceptions.{ BadQueryParameterException, Exceptions, ResourceNotFoundException, ServiceUnreachableException }
 import com.typesafe.config.Config
-import okhttp3.{MediaType, OkHttpClient, Request, RequestBody, Response}
-import org.slf4j.{Logger, LoggerFactory}
+import okhttp3.{ MediaType, OkHttpClient, Request, RequestBody, Response }
+import org.slf4j.{ Logger, LoggerFactory }
 
 import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global

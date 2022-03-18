@@ -1,10 +1,10 @@
 package com.twosixlabs.dart.corpex
 
 import com.twosixlabs.dart.auth.controllers.SecureDartController
-import com.twosixlabs.dart.cdr.aggregator.controllers.CdrAggregationController
-import com.twosixlabs.dart.cdr.aggregator.services.{CdrService, ParameterizedQueryService}
+import com.twosixlabs.dart.corpex.controller.CdrAggregationController
+import com.twosixlabs.dart.corpex.services.aggregation.{ CdrService, ParameterizedQueryService }
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
 import com.twosixlabs.dart.corpex.controller.{AnnotationsController, DataController, DocumentsController, SearchController}
-import com.twosixlabs.dart.corpex.services.es.ElasticsearchSearchService
 import com.twosixlabs.dart.rest.ApiStandards
 import com.twosixlabs.dart.rest.scalatra.DartRootServlet
 import com.twosixlabs.dart.search.ElasticsearchCorpusTenantIndex
@@ -40,12 +40,11 @@ class ScalatraInit extends LifeCycle {
     val dataController : DataController = new DataController( baseControllerDependencies )
     val searchController : SearchController = SearchController( esService, baseControllerDependencies )
     val documentsController : DocumentsController = DocumentsController( esService, esTenantIndex, baseControllerDependencies )
-    val aggregationController = {
+    val aggregationController : CdrAggregationController = {
         val props : Map[String, String ] = System.getProperties.asScala.toMap
         val queryService = new ParameterizedQueryService( props )
-        val cdrRepository = new HackyEsCdrRepository( esService )
-        val cdrService = new CdrService( props, cdrRepository )
-        new CdrAggregationController( queryService, cdrService )
+        val cdrService = new CdrService( props, esService )
+        new CdrAggregationController( queryService, cdrService, baseControllerDependencies )
     }
 
     // Initialize scalatra: mounts servlets

@@ -13,7 +13,8 @@ object CorpexBaseController {
     implicit class FromAuthDeps( sdcDeps : SecureDartController.Dependencies ) extends Dependencies {
         override val serviceName : String = sdcDeps.serviceName
         override val secretKey : Option[String ] = sdcDeps.secretKey
-        override val bypassAuth : Boolean = sdcDeps.bypassAuth
+        override val useDartAuth : Boolean = sdcDeps.useDartAuth
+        override val basicAuthCredentials : Seq[ (String, String) ] = sdcDeps.basicAuthCredentials
     }
 }
 
@@ -22,7 +23,8 @@ abstract class CorpexBaseController( dependencies : CorpexBaseController.Depende
 
     override val serviceName : String = dependencies.serviceName
     override val secretKey : Option[ String ] = dependencies.secretKey
-    override val bypassAuth : Boolean = dependencies.bypassAuth
+    override val useDartAuth : Boolean = dependencies.useDartAuth
+    override val basicAuthCredentials : Seq[ (String, String) ] = dependencies.basicAuthCredentials
 
     override val LOG : Logger = LoggerFactory.getLogger( getClass )
 
@@ -35,7 +37,8 @@ abstract class AsyncCorpexBaseController( dependencies : CorpexBaseController.De
 
     override val serviceName : String = dependencies.serviceName
     override val secretKey : Option[ String ] = dependencies.secretKey
-    override val bypassAuth : Boolean = dependencies.bypassAuth
+    override lazy val useDartAuth : Boolean = dependencies.useDartAuth
+    override lazy val basicAuthCredentials : Seq[ (String, String) ] = dependencies.basicAuthCredentials
 
     override val LOG : Logger = LoggerFactory.getLogger( getClass )
 

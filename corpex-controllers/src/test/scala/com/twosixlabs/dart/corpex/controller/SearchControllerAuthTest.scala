@@ -1,15 +1,15 @@
 package com.twosixlabs.dart.corpex.controller
 
 import com.twosixlabs.dart.auth.controllers.SecureDartController
-import com.twosixlabs.dart.auth.groups.{ProgramManager, TenantGroup}
-import com.twosixlabs.dart.auth.tenant.{CorpusTenant, Leader, ReadOnly}
+import com.twosixlabs.dart.auth.groups.{ ProgramManager, TenantGroup }
+import com.twosixlabs.dart.auth.tenant.{ CorpusTenant, Leader, ReadOnly }
 import com.twosixlabs.dart.auth.user.DartUser
 import com.twosixlabs.dart.commons.config.StandardCliConfig
-import com.twosixlabs.dart.corpex.services.SearchService
-import com.twosixlabs.dart.corpex.services.es.ElasticsearchSearchService
-import com.twosixlabs.dart.test.tags.annotations.WipTest
-import com.typesafe.config.{Config, ConfigFactory}
-import okhttp3.mockwebserver.{MockResponse, MockWebServer}
+import annotations.WipTest
+import com.twosixlabs.dart.corpex.services.search.SearchService
+import com.twosixlabs.dart.corpex.services.search.es.ElasticsearchSearchService
+import com.typesafe.config.{ Config, ConfigFactory }
+import okhttp3.mockwebserver.{ MockResponse, MockWebServer }
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
@@ -18,7 +18,6 @@ import org.scalatra.test.scalatest.ScalatraSuite
 import javax.servlet.http.HttpServletRequest
 import scala.collection.JavaConverters._
 
-@WipTest
 class SearchControllerAuthTest extends AnyFlatSpecLike with ScalatraSuite with Matchers with MockFactory with StandardCliConfig {
 
     val mockEsJson : String =
@@ -170,7 +169,8 @@ class SearchControllerAuthTest extends AnyFlatSpecLike with ScalatraSuite with M
         override val searchService : SearchService = ElasticsearchSearchService( config )
         override val serviceName : String = baseDependencies.serviceName
         override val secretKey : Option[String ] = baseDependencies.secretKey
-        override val bypassAuth : Boolean = false
+        override val useDartAuth : Boolean = true
+        override val basicAuthCredentials : Seq[ (String, String) ] = Nil
     }
 
     addServlet( new SearchController( searchControllerDeps ) {

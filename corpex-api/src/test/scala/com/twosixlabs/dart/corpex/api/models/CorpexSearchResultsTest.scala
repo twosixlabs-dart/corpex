@@ -34,7 +34,7 @@ class CorpexSearchResultsTest extends FlatSpecLike with Matchers {
         val cdrJson = Resource.getAsString( "test_cdr.json" )
         val cdrObj = Mapper.unmarshal( cdrJson, classOf[ DartCdrDocumentDto ] )
 
-        cdrObj.documentId shouldBe "78f66304711008e1c38a96af2481a208"
+        cdrObj.documentId shouldBe "0fc018c8dec5f42c80384244ea87cfce"
     }
 
 }

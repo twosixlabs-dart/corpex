@@ -1,13 +1,14 @@
-package com.twosixlabs.dart.corpex.services.es
+package com.twosixlabs.dart.corpex.services.search.es
 
 import java.time.OffsetDateTime
-import com.twosixlabs.dart.corpex.api.configuration.annotations.{FacetId, TagId, TagType}
-import com.twosixlabs.dart.corpex.api.enums.{BoolType, SortType}
+import com.twosixlabs.dart.corpex.api.configuration.annotations.{ FacetId, TagId, TagType }
+import com.twosixlabs.dart.corpex.api.enums.{ BoolType, SortType }
 import com.twosixlabs.dart.corpex.api.models.MultiValue
-import com.twosixlabs.dart.corpex.services.es.models.{AggBucketSort, AggQuery, BoolQuery, DoubleRangeQuery, EsAggQuery, EsQuery, EsSortKey, LongAggQuery, LongRangeQuery, MatchQuery, NestedQuery, QueryStringQuery, TermQuery}
+import com.twosixlabs.dart.corpex.services.search.es.models.EsSortKey
+import com.twosixlabs.dart.corpex.services.search.es.models.{ AggBucketSort, AggQuery, BoolQuery, DoubleRangeQuery, EsAggQuery, EsQuery, EsSortKey, LongAggQuery, LongRangeQuery, MatchQuery, NestedQuery, QueryStringQuery, TermQuery }
 import com.twosixlabs.dart.corpex.tools.ParseDate
 import com.twosixlabs.dart.exceptions.BadRequestBodyException
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 object QueryGenerators {
 
