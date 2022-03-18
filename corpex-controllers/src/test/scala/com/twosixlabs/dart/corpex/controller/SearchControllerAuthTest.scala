@@ -18,7 +18,6 @@ import org.scalatra.test.scalatest.ScalatraSuite
 import javax.servlet.http.HttpServletRequest
 import scala.collection.JavaConverters._
 
-@WipTest
 class SearchControllerAuthTest extends AnyFlatSpecLike with ScalatraSuite with Matchers with MockFactory with StandardCliConfig {
 
     val mockEsJson : String =

@@ -5,7 +5,7 @@ import com.twosixlabs.dart.auth.user.DartUser
 import com.twosixlabs.dart.corpex.services.aggregation.exceptions.QueryValidationException
 import com.twosixlabs.dart.corpex.services.aggregation.models.AggregationQuery
 import com.twosixlabs.dart.corpex.services.aggregation.{ CdrService, QueryService }
-import com.twosixlabs.dart.exceptions.BadQueryParameterException
+import com.twosixlabs.dart.exceptions.{ BadQueryParameterException, DartRestException, ServiceUnreachableException }
 import org.scalatra.Ok
 import org.slf4j.{ Logger, LoggerFactory }
 
@@ -33,7 +33,8 @@ class CdrAggregationController( queryService : QueryService,
 
         Try( Ok( cdrService.getAggregation( docId, aggregationQuery, date ) ) ) recoverWith {
             case e : QueryValidationException => Failure( new BadQueryParameterException( e.getMessage ) )
-            case e : Throwable => Failure( e )
+            case e : DartRestException => Failure( e )
+            case e : Throwable => Failure( new ServiceUnreachableException( "document service", Some( e.getMessage ) ) )
         }
     } ) )
 
@@ -60,7 +61,11 @@ class CdrAggregationController( queryService : QueryService,
 
         val results = queries.map( ( tup : (String, AggregationQuery) ) => {
             val (queryName, query) = tup
-            val resList = cdrService.getAggregation( docId, query, date )
+            val resList = Try( cdrService.getAggregation( docId, query, date ) ) match {
+                case Success( res ) => res
+                case Failure( e : DartRestException ) => throw e
+                case Failure( e ) => throw new ServiceUnreachableException( "document service", Some( e.getMessage ) )
+            }
             (queryName, resList)
         } )
 

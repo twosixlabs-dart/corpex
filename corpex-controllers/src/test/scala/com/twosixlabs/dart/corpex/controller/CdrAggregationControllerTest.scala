@@ -9,6 +9,7 @@ import com.twosixlabs.dart.commons.config.StandardCliConfig
 import com.twosixlabs.dart.corpex.api.models.ValueCount
 import com.twosixlabs.dart.corpex.services.aggregation.{ CdrService, ParameterizedQueryService }
 import com.twosixlabs.dart.corpex.services.search.SearchService
+import com.twosixlabs.dart.exceptions.ResourceNotFoundException
 import com.twosixlabs.dart.json.JsonFormat
 import com.twosixlabs.dart.test.tags.WipTest
 import org.scalamock.scalatest.MockFactory
@@ -29,7 +30,7 @@ class CdrAggregationControllerTest extends AnyFlatSpecLike with ScalatraSuite wi
 
     val queryService = new ParameterizedQueryService(
         Map( "predefined.query.test-query-1" -> "tagId:qntfy-ner,tagType:DATE,maxResults:3",
-             "predefined.query.test-query-2" -> "tagId:qntfy-event,tagType:B-action",
+             "predefined.query.test-query-2" -> "tagId:qntfy-event,tagType:NIL",
              "predefined.query.test-query-3" -> "tagId:qntfy-ner,tagType:LOC,minResults:10" ) )
 
     val docService = stub[ SearchService ]
@@ -81,10 +82,10 @@ class CdrAggregationControllerTest extends AnyFlatSpecLike with ScalatraSuite wi
         }
     }
 
-    it should "return 404 and a failure json object if cdrRepository returns Success( None )" in {
+    it should "return 404 and a failure json object if cdrRepository returns resource not found exception" in {
         ( docService.getDocument _ )
           .when( "test-doc-id", *, * )
-          .returns( testCdrDto )
+          .throws( new ResourceNotFoundException( "CDR", Some( "test-doc-id" ) ) )
 
         get( "/test-doc-id/aggregate?tagId=qntfy-ner&tagType=DATE&maxResults=3" ) {
             status shouldBe 404
@@ -101,7 +102,7 @@ class CdrAggregationControllerTest extends AnyFlatSpecLike with ScalatraSuite wi
         get( "/test-doc-id/aggregate?tagId=qntfy-ner&tagType=DATE&maxResults=3" ) {
             status shouldBe 503
             response.body should include ( "503" )
-            response.body should include ( "Canonical CDR Repository" )
+            response.body should include ( "document service" )
         }
     }
 
@@ -134,7 +135,7 @@ class CdrAggregationControllerTest extends AnyFlatSpecLike with ScalatraSuite wi
 
         get( "/test-doc-id/aggregate?queryName=test-query-1" ) {
             status shouldBe 200
-            response.body shouldBe """[{"count":4,"value":"this year"},{"count":3,"value":"winter"},{"count":2,"value":"the winter"}]"""
+            response.body shouldBe """[{"count":84,"value":"2020"},{"count":69,"value":"2019"},{"count":45,"value":"2018"}]"""
         }
     }
 
@@ -145,7 +146,7 @@ class CdrAggregationControllerTest extends AnyFlatSpecLike with ScalatraSuite wi
 
         get( "/test-doc-id/aggregate?queryName=test-query-1&minResults=100&maxResults=200" ) {
             status shouldBe 200
-            response.body should startWith ( """[{"count":4,"value":"this year"},{"count":3,"value":"winter"},{"count":2,"value":"the winter"}""" )
+            response.body should startWith ( """[{"count":84,"value":"2020"},{"count":69,"value":"2019"},{"count":45,"value":"2018"},{"count":42,"value":"2017"},{"count":39,"value":"2015"}""" )
             val valCounts = JsonFormat.unmarshalTo( response.body, classOf[ List[ ValueCount ] ] ).get // NOTE: doesn't correctly unmarshal for some reason...
             valCounts.length should be > 10
         }
