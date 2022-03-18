@@ -60,12 +60,29 @@ lazy val assemblySettings = Seq(
     assemblyMergeStrategy in assembly := {
         case PathList( "META-INF", "MANIFEST.MF" ) => MergeStrategy.discard
         case PathList( "reference.conf" ) => MergeStrategy.concat
-        case x => MergeStrategy.last
+        case _ => MergeStrategy.last
     },
-    Compile / unmanagedResourceDirectories += baseDirectory.value / "src/main/webapp",
     test in assembly := {},
     mainClass in( Compile, run ) := Some( "Main" ),
 )
+
+sonatypeProfileName := "com.twosixlabs"
+inThisBuild(List(
+    organization := "com.twosixlabs.dart.corpex",
+    homepage := Some(url("https://github.com/twosixlabs-dart/corpex")),
+    licenses := List("GNU-Affero-3.0" -> url("https://www.gnu.org/licenses/agpl-3.0.en.html")),
+    developers := List(
+        Developer(
+            "twosixlabs-dart",
+            "Two Six Technologies",
+            "",
+            url("https://github.com/twosixlabs-dart")
+        )
+    )
+))
+
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+ThisBuild / sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 
 
 /*
