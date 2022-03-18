@@ -43,16 +43,8 @@ lazy val commonSettings = {
     )
 }
 
-lazy val publishSettings = Seq(
-    publishTo := {
-	// TODO
-	None
-    },
-    publishMavenStyle := true,
-)
-
 lazy val disablePublish = Seq(
-    publish := {}
+    skip.in( publish ) := true,
 )
 
 lazy val assemblySettings = Seq(
@@ -113,7 +105,6 @@ lazy val corpexApi = ( project in file( "corpex-api" ) )
                               ++ betterFiles
                               ++ cdr4s
                               ++ dartCommons,
-      publishSettings,
     )
 
 lazy val corpexServices = ( project in file( "corpex-services" ) )
@@ -143,7 +134,6 @@ lazy val corpexControllers = ( project in file( "corpex-controllers" ) )
                               ++ dartRest
                               ++ dartAuth
                               ++ jsonValidator,
-      publishSettings,
    )
 
 lazy val corpexMicroservice = ( project in file( "corpex-microservice" ) )
@@ -163,6 +153,5 @@ lazy val corpexClient = ( project in file( "corpex-client" ) )
       commonSettings,
       libraryDependencies ++= betterFiles ++ scalatra ++ jackson,
       assemblySettings,
-      publishSettings,
    )
 
