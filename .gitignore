@@ -20,4 +20,5 @@ project/project
 *.iml
 .idea/*
 .idea
+.bsp
 .DS_Store
